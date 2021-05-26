@@ -11,12 +11,15 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      let colors = new Values(color).all[10]
+      let colors = new Values(color).all(10);
+      setList(colors);
     } catch (err) {
       setError(true);
-      console.error(err)
+      console.log(err);
     }
   }
+
+  console.log(list)
 
   return (
     <>
@@ -33,8 +36,10 @@ function App() {
           <button className='btn' type='submit'>submit</button>
         </form>
       </section>
-      <section className='color'>
-        <h4>list goes here</h4>
+      <section className='colors'>
+        {list.map((color, index) => {
+          return <SingleColor key={index} {...color} index={index} />; 
+        })}
       </section>
     </>
   );
